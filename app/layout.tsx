@@ -1,42 +1,20 @@
-import type { Metadata } from "next";
-import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Manrope, Geist_Mono } from 'next/font/google'
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' })
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
 
 export const metadata: Metadata = {
-  title: "Secure Mesh — Private messaging for the people nearby",
-  description:
-    "Secure Mesh is an offline, end-to-end encrypted messaging app. Phones find each other over Bluetooth Low Energy and relay sealed messages peer-to-peer — no servers, no internet, no cloud.",
-};
+  title: 'SecureMesh: offline messaging over Bluetooth',
+  description: 'Peer-to-peer, end-to-end encrypted chat for nearby Android phones. No internet, no server: multi-hop relay, duplicate suppression and an on-device intrusion detector.',
+  icons: { icon: [{ url: '/icon.png', type: 'image/png', sizes: '256x256' }], shortcut: '/icon.png', apple: '/icon.png' },
+  openGraph: { title: 'SecureMesh', description: 'Messages that do not need a network.', images: ['/icon.png'] },
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${inter.variable} ${jetbrains.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`${manrope.variable} ${mono.variable}`}>
+      <body style={{ margin: 0, background: '#F7F6F2' }}>{children}</body>
     </html>
-  );
+  )
 }

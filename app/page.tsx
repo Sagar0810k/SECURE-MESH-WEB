@@ -1,17 +1,17 @@
-"use client";
+'use client'
+import dynamic from 'next/dynamic'
+import { Hud70 } from '@/components/hud/Hud70'
 
-import { Suspense } from "react";
-import SmoothScroll from "../components/SmoothScroll";
-import SceneCanvas from "../components/scene/SceneCanvas";
+// Canvas is client-only and loads after first paint; the HUD preloader covers it.
+const SceneCanvas = dynamic(() => import('@/components/scene/World70'), { ssr: false })
 
-export default function Home() {
+export default function Page() {
   return (
-    <SmoothScroll>
-      <div className="scene-root" style={{ position: "relative", width: "100vw", height: "400vh", overflow: "hidden" }}>
-        <Suspense fallback={null}>
-          <SceneCanvas />
-        </Suspense>
-      </div>
-    </SmoothScroll>
-  );
+    <>
+      <SceneCanvas />
+      <Hud70 />
+      {/* scroll track: ~55vh per scene; Lenis maps it to 0..1 */}
+      <main aria-label="Secure_Mesh scroll experience" style={{ height: 'calc(70 * 55vh + 100vh)' }} />
+    </>
+  )
 }
